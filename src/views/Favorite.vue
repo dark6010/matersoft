@@ -10,29 +10,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
+      <tr v-for="val in movie.movies ">
+        <td>{{val.Title}}</td>
+        <td>{{val.Year}}</td>
+        <td>{{val.imdbID}}</td>
+        <td>{{val.Type}}</td>
+        <td>
+          <img :src="val.Poster" alt="" width="100">
+          </td>
       </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-        <td>@twitter</td>
-      </tr>
+
     </tbody>
   </table>
 </template>
 <script setup lang="ts">
+import { useMovieStore } from '../../stores/movies'
+const movie = useMovieStore()
 </script>

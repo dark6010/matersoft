@@ -2,15 +2,17 @@
 import { defineStore } from 'pinia'
 
 export const useMovieStore = defineStore('movie', {
-  state: () => {
-    return { movies: [] }
+  state: ():interfaceData => {
+    return { movies : []  }
   },
   // could also be defined as
   // state: () => ({ count: 0 })
   actions: {
     add(val:any) {
-      console.log(88)
-      this.movies.push[val]
+      this.movies.push(val)
     },
   },
 })
+interface interfaceData{
+  movies: Array<any>
+}

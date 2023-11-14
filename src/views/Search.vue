@@ -16,10 +16,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="val in arrResultado ">
+      <tr v-if="arrResultado" v-for="val in arrResultado ">
         <td>{{val.Title}}</td>
         <td>{{val.Year}}</td>
-        <td>{{val.  imdbID}}</td>
+        <td>{{val.imdbID}}</td>
         <td>{{val.Type}}</td>
         <td>
           <img :src="val.Poster" alt="" width="100">
@@ -42,14 +42,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { Ref, ref, toRaw  } from 'vue'
 import { useMovieStore } from '../../stores/movies'
   const movie = useMovieStore()
   const busqueda = ref('')
   const show = ref(false)
   const paginas = ref(0)
   const actual = ref(0)
-  const arrResultado = ref([])
+  const arrResultado:Ref<any> = ref([])
   const search = async ()=>{
     if(!busqueda.value){
       return
@@ -60,10 +60,10 @@ import { useMovieStore } from '../../stores/movies'
       if(response.Response){
         paginas.value = Math.trunc(parseInt(response.totalResults) / 10)+1
         arrResultado.value = response.Search
-        console.log(paginas.value, response, busqueda.value, arrResultado.value)
         actual.value = 1
         show.value = true
       }else{
+        arrResultado.value=[]
         show.value = false
       }
     }catch(e){
@@ -80,7 +80,6 @@ import { useMovieStore } from '../../stores/movies'
       if(response.Response){
         paginas.value = Math.trunc(parseInt(response.totalResults) / 10)+1
         arrResultado.value = response.Search
-        console.log(paginas.value, response, busqueda.value, arrResultado.value)
         actual.value = n
         show.value = true
       }else{
@@ -91,8 +90,6 @@ import { useMovieStore } from '../../stores/movies'
     }
   }
   const AddFavorite = async (data:any)=>{
-    console.log(5566, data)
-    movie.add(data)
-    console.log(movie.movies)
+    movie.add(toRaw(data))
   }
 </script>
