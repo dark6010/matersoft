@@ -19,7 +19,7 @@
       <tr v-if="arrResultado" v-for="val in arrResultado ">
         <td>{{val.Title}}</td>
         <td>{{val.Year}}</td>
-        <td>{{val.imdbID}}</td>
+        <td><router-link :to="'/detail/'+val.imdbID">{{val.imdbID}}</router-link></td>
         <td>{{val.Type}}</td>
         <td>
           <img :src="val.Poster" alt="" width="100">
